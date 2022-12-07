@@ -13,6 +13,7 @@ class InputReader{
         InputReader(std::string path);
         ~InputReader();
         std::uint8_t nextByte();
+        bool fileRemaining();
 };
 
 #endif

@@ -21,3 +21,7 @@ std::uint8_t InputReader::nextByte(){
     this->input_file >> next_byte;      // Stops at the whitespace, reading only 1 byte
     return (std::uint8_t) std::stoi(next_byte, nullptr, 16);     // Read the string's hex value into an integer
 }
+
+bool InputReader::fileRemaining(){
+    return this->input_file.good();
+}
