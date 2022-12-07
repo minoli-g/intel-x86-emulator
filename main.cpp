@@ -26,5 +26,8 @@ int main(int argc, char *argv[]) {
             //Call the add function
             add(&ir, incoming_opcodes);
        }
+
+       // Operation is finished - clear the opcode vector to receive new ones
+       incoming_opcodes.clear();
     }
 }
