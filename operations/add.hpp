@@ -12,6 +12,6 @@ void add_04(InputReader* ir);
 void add_05(InputReader* ir);
 void add_83(InputReader* ir);
 
-void add(InputReader* ir, std::vector<uint8_t> incoming_opcodes);
+void add(InputReader* ir, uint8_t opcode);
 
 #endif

@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -std=c++17 -Wall -g
 
-main: main.o input_reader.o modrm.o add.o opcodes.o
-	$(CC) $(CFLAGS) -o main main.o input_reader.o modrm.o add.o opcodes.o
+main: main.o input_reader.o modrm.o add.o bsf.o opcodes.o
+	$(CC) $(CFLAGS) -o main main.o input_reader.o modrm.o add.o bsf.o opcodes.o
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp 
@@ -17,4 +17,7 @@ opcodes.o: opcodes.hpp opcodes.cpp
 	$(CC) $(CFLAGS) -c opcodes.cpp
 
 add.o: operations/add.hpp operations/add.cpp
-	$(CC) $(CFLAGS) -c operations/add.cpp 
+	$(CC) $(CFLAGS) -c operations/add.cpp
+
+bsf.o: operations/bsf.hpp operations/bsf.cpp
+	$(CC) $(CFLAGS) -c operations/bsf.cpp

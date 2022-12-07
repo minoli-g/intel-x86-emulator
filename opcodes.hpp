@@ -6,9 +6,13 @@
 
 namespace opcodes{
 
+    // One-byte opcode maps
     extern const std::set<std::uint8_t> add_ops;
-    //TODO - Add other operations
 
+    // Two-byte opcode maps (first opcode is 0x0F)
+    extern const std::set<std::uint8_t> bsf_ops;
+
+    // Three-byte opcode combinations are not supported
 }
 
 #endif

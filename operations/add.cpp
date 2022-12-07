@@ -13,8 +13,8 @@ void add_00(InputReader* ir){
     << " to value of Register " << std::to_string(rm8) << "\n";
 }
 
-void add(InputReader* ir, std::vector<uint8_t> incoming_opcodes){
-    switch (incoming_opcodes[0]) {
+void add(InputReader* ir, uint8_t opcode){
+    switch (opcode) {
         case 0x00:
             add_00(ir);
             break;
