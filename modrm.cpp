@@ -25,13 +25,7 @@ uint8_t getRM(uint8_t modrm){
     return (uint8_t) (modrm&7);
 }
 
-bool isRMReg(uint8_t modrm){
-    return (getMod(modrm)==11);
-}
-
-std::string getRMReg(uint8_t modrm, enum RegisterTypes reg_type){
-    int index = getRM(modrm);
-
+std::string getRegFromIndex(uint8_t index, enum RegisterTypes reg_type){
     switch (reg_type){
         case REG_8:
             return regs_8bit[index];
@@ -47,6 +41,15 @@ std::string getRMReg(uint8_t modrm, enum RegisterTypes reg_type){
     }
 }
 
+bool isRMReg(uint8_t modrm){
+    return (getMod(modrm)==3);
+}
+
+std::string getRMReg(uint8_t modrm, enum RegisterTypes reg_type){
+    int index = getRM(modrm);
+    return getRegFromIndex(index, reg_type);
+}
+
 uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
 
     int mod = getMod(modrm);
@@ -55,10 +58,10 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
     if (mod==0){
         switch (rm){
 
-            case 4:
+            case 4: {
                 uint8_t sib = ir->nextByte();
                 return getSIBMemLocation(sib);
-
+            }
             case 5:
                 return getDisp32(ir);
 
@@ -69,11 +72,11 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
     if (mod==1){
         switch (rm){
 
-            case 4:
+            case 4: {
                 uint8_t sib = ir->nextByte();
                 uint8_t disp8 = ir->nextByte();
                 return getSIBMemLocation(sib) + disp8;
-
+            }
             default:
                 uint8_t disp8 = ir->nextByte();
                 return rb->get(regs_32bit[rm]) + disp8;
@@ -82,11 +85,11 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
     if (mod==2){
         switch (rm){
 
-            case 4:
+            case 4: {
                 uint8_t sib = ir->nextByte();
                 uint8_t disp32 = getDisp32(ir);
                 return getSIBMemLocation(sib) + disp32;
-
+            }
             default:
                 uint8_t disp32 = getDisp32(ir);
                 return rb->get(regs_32bit[rm]) + disp32;
