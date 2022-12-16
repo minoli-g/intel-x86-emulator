@@ -52,15 +52,15 @@ std::string getRMReg(uint8_t modrm, enum RegisterTypes reg_type){
 
 uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
 
-    int mod = getMod(modrm);
-    int rm = getRM(modrm);
+    uint8_t mod = getMod(modrm);
+    uint8_t rm = getRM(modrm);
 
     if (mod==0){
         switch (rm){
 
             case 4: {
                 uint8_t sib = ir->nextByte();
-                return getSIBMemLocation(sib);
+                return getSIBMemLocation(sib, rb, mod, ir);
             }
             case 5:
                 return getDisp32(ir);
@@ -75,7 +75,7 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
             case 4: {
                 uint8_t sib = ir->nextByte();
                 uint8_t disp8 = ir->nextByte();
-                return getSIBMemLocation(sib) + disp8;
+                return getSIBMemLocation(sib, rb, mod, ir) + disp8;
             }
             default:
                 uint8_t disp8 = ir->nextByte();
@@ -88,7 +88,7 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
             case 4: {
                 uint8_t sib = ir->nextByte();
                 uint8_t disp32 = getDisp32(ir);
-                return getSIBMemLocation(sib) + disp32;
+                return getSIBMemLocation(sib, rb, mod, ir) + disp32;
             }
             default:
                 uint8_t disp32 = getDisp32(ir);
