@@ -1,4 +1,7 @@
 #include "modrm.hpp"
+#include "register.hpp"
+#include "input_reader.hpp"
+#include "instr_utils.hpp"
 
 std::string regs_32bit[] = {"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI" };
 std::string regs_16bit[] = { "AX", "CX", "DX", "BX", "SP", "BP", "SI", "DI" };
@@ -47,6 +50,49 @@ std::string getRMReg(uint8_t modrm, enum RegisterTypes reg_type){
     }
 }
 
-uint32_t getRMMemLocation(uint8_t modrm){
-    
+uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
+
+    int mod = getMod(modrm);
+    int rm = getRM(modrm);
+
+    if (mod==0){
+        switch (rm){
+
+            case 4:
+                uint8_t sib = ir->nextByte();
+                return getSIBMemLocation(sib);
+
+            case 5:
+                return getDisp32(ir);
+
+            default:
+                return rb->get(regs_32bit[rm]);
+        }
+    }
+    if (mod==1){
+        switch (rm){
+
+            case 4:
+                uint8_t sib = ir->nextByte();
+                uint8_t disp8 = ir->nextByte();
+                return getSIBMemLocation(sib) + disp8;
+
+            default:
+                uint8_t disp8 = ir->nextByte();
+                return rb->get(regs_32bit[rm]) + disp8;
+        }
+    }
+    if (mod==2){
+        switch (rm){
+
+            case 4:
+                uint8_t sib = ir->nextByte();
+                uint8_t disp32 = getDisp32(ir);
+                return getSIBMemLocation(sib) + disp32;
+
+            default:
+                uint8_t disp32 = getDisp32(ir);
+                return rb->get(regs_32bit[rm]) + disp32;
+        }
+    }
 }
