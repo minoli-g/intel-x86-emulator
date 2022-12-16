@@ -35,15 +35,12 @@ std::string getRMReg(uint8_t modrm, enum RegisterTypes reg_type){
     switch (reg_type){
         case REG_8:
             return regs_8bit[index];
-            break;
 
         case REG_16:
             return regs_16bit[index];
-            break;
 
         case REG_32:
             return regs_32bit[index];
-            break;
 
         default:
             std::cout << "Unsupported register type \n";
