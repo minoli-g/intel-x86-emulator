@@ -33,27 +33,17 @@ uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputRead
     int base = sib&7;
 
     uint32_t base_value = 0;
-    if (base != 4){
-        base_value = rb->get(reg_names_32bit[base]);
+    if (base == 5 && mod == 0){
+        base_value = getDisp32(ir);
     }
     else {
-        switch (mod){
-            case 0: 
-                base_value = getDisp32(ir);
-                break;
-            case 1:
-                base_value = getDisp8(ir) + rb->get("EBP");
-                break;
-            case 2:
-                base_value = getDisp32(ir) + rb->get("EBP");
-                break;    
-        }
+        base_value = rb->get(reg_names_32bit[base]);
     }
 
     uint32_t scaled_value = 0;
-    if (index != 5){
+    if (index != 4){
         scaled_value += rb->get(reg_names_32bit[index]) * (1<<scale);
     }
-
+    
     return base_value + scaled_value; 
 }
