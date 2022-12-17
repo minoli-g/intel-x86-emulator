@@ -1,6 +1,6 @@
 #include "instr_utils.hpp"
 
-std::string regs_32bit[] = {"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI" };
+std::string reg_names_32bit[] = {"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI" };
 
 uint8_t getDisp8(InputReader* ir){
     return ir->nextByte();
@@ -34,7 +34,7 @@ uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputRead
 
     uint32_t base_value = 0;
     if (base != 4){
-        base_value = rb->get(regs_32bit[base]);
+        base_value = rb->get(reg_names_32bit[base]);
     }
     else {
         switch (mod){
@@ -52,7 +52,7 @@ uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputRead
 
     uint32_t scaled_value = 0;
     if (index != 5){
-        scaled_value += rb->get(regs_32bit[index]) * (1<<scale);
+        scaled_value += rb->get(reg_names_32bit[index]) * (1<<scale);
     }
 
     return base_value + scaled_value; 
