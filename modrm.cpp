@@ -38,6 +38,7 @@ std::string getRegFromIndex(uint8_t index, enum RegisterTypes reg_type){
 
         default:
             std::cout << "Unsupported register type \n";
+            exit(0);
     }
 }
 
@@ -91,8 +92,12 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
                 return getSIBMemLocation(sib, rb, mod, ir) + disp32;
             }
             default:
-                uint8_t disp32 = getDisp32(ir);
+                uint32_t disp32 = getDisp32(ir);
                 return rb->get(regs_32bit[rm]) + disp32;
         }
+    }
+    else {
+        std::cout << "Error: Memory location requested but operand is a register";
+        exit(0);
     }
 }
