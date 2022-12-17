@@ -16,3 +16,11 @@ uint32_t Memory::read(uint32_t address){
 void Memory::write(uint32_t address, uint32_t data) {
     memory_map[address] = data;
 }
+
+void Memory::dumpValues(){
+    std::cout << "\n-------MEMORY DUMP------- \n" << std::hex;
+    for (auto const& [address, data]: memory_map){
+        std::cout << address << " : " << data << "\t";
+    }
+    std::cout << std::dec << "\n";
+}
