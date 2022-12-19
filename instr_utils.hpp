@@ -11,4 +11,8 @@ uint8_t getDisp8(InputReader* ir);
 uint16_t getDisp16(InputReader* ir);
 uint32_t getDisp32(InputReader* ir);
 
+uint8_t getImm8(InputReader* ir);
+uint16_t getImm16(InputReader* ir);
+uint32_t getImm32(InputReader* ir);
+
 #endif

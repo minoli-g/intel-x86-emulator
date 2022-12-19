@@ -26,6 +26,18 @@ uint32_t getDisp32(InputReader* ir){
     return disp32;
 }
 
+uint8_t getImm8(InputReader* ir){
+    return getDisp8(ir);
+}
+
+uint16_t getImm16(InputReader* ir){
+    return getDisp16(ir);
+}
+
+uint32_t getImm32(InputReader* ir){
+    return getDisp32(ir);
+}
+
 uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputReader* ir){
 
     int scale = sib >> 6;
