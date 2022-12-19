@@ -9,7 +9,9 @@ uint32_t Memory::read(uint32_t address){
     if (memory_map.count(address)){
         return memory_map[address];
     }
-    std::cout << "Error: attempted to read from invalid memory location \n";
+    std::cout << std::hex 
+            << "Error: attempted to read from invalid memory location "<< address <<"\n"
+            << std::dec;
     exit(0);
 }
 
