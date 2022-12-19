@@ -1,18 +1,21 @@
 #include "input_reader.hpp"
 #include "opcodes.hpp"
 #include "operations/all_operations.hpp"
+#include "register.hpp"
+#include "memory.hpp"
 
 #include <iostream>
 #include <fstream>
 #include <vector>
 
 int main(int argc, char *argv[]) {
-    std::cout<<"Emulation started"<<"\n";
+    std::cout<<"----Emulation started----"<<"\n";
 
     InputReader ir = InputReader(argv[1]);
+    RegisterBank rb = RegisterBank();
+    Memory mem = Memory();
 
     while (ir.fileRemaining()){
-       //std::cout<<std::to_string(ir.nextByte())<<"\n";
 
        uint8_t opcode1 = ir.nextByte();
 
@@ -63,7 +66,7 @@ int main(int argc, char *argv[]) {
             default:
 
                 if (opcodes::add_ops.count(opcode1)){
-                    add(&ir, opcode1);
+                    add(&ir, &rb, &mem, opcode1);
                 }
                 // Other operations below
 
@@ -74,4 +77,8 @@ int main(int argc, char *argv[]) {
 
         }
     }
+
+    std::cout << "----Emulation complete----\n";
+    rb.dumpValues();
+    mem.dumpValues();
 }
