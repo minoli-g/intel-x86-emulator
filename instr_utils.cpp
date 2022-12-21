@@ -27,15 +27,24 @@ uint32_t getDisp32(InputReader* ir){
 }
 
 int8_t getImm8(InputReader* ir){
-    return (int8_t) getDisp8(ir);
+    int8_t ans = (int8_t) getDisp8(ir);
+    // Imm data is signed - show it as a decimal with the sign
+    std::cout << std::dec << "Read Imm8 data decimal value " << +ans <<"\n" << std::hex; 
+    return ans;
 }
 
 int16_t getImm16(InputReader* ir){
-    return (int8_t) getDisp16(ir);
+    int16_t ans = (int16_t) getDisp16(ir);
+    // Imm data is signed - show it as a decimal with the sign
+    std::cout << std::dec << "Read Imm16 data decimal value " << +ans <<"\n" << std::hex;
+    return ans;
 }
 
 int32_t getImm32(InputReader* ir){
-    return (int8_t) getDisp32(ir);
+    int32_t ans = (int32_t) getDisp8(ir);
+    // Imm data is signed - show it as a decimal with the sign
+    std::cout << std::dec << "Read Imm32 data decimal value " << +ans <<"\n" << std::hex;
+    return ans;
 }
 
 uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputReader* ir){
@@ -57,5 +66,6 @@ uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputRead
         scaled_value += rb->get(reg_names_32bit[index]) * (1<<scale);
     }
     
+    std::cout << "Effective addr of SIB byte "<<sib<<" is "<< +(base_value + scaled_value) <<"\n";
     return base_value + scaled_value; 
 }

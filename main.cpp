@@ -9,7 +9,8 @@
 #include <vector>
 
 int main(int argc, char *argv[]) {
-    std::cout<<"----Emulation started----"<<"\n";
+    std::cout<<"----Emulation started----"<<"\n\n";
+    std::cout << std::hex;
 
     InputReader ir = InputReader(argv[1]);
     RegisterBank rb = RegisterBank();
@@ -78,7 +79,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    std::cout << "----Emulation complete----\n";
+    std::cout << "\n----Emulation complete----\n";
     rb.dumpValues();
     mem.dumpValues();
 }

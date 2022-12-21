@@ -7,6 +7,7 @@ Memory::Memory(){
 
 uint32_t Memory::read(uint32_t address){
     if (memory_map.count(address)){
+        std::cout << "Read value "<< +memory_map[address] <<" from memory location " << +address << "\n";
         return memory_map[address];
     }
     std::cout << std::hex 
@@ -16,6 +17,7 @@ uint32_t Memory::read(uint32_t address){
 }
 
 void Memory::write(uint32_t address, uint32_t data) {
+    std::cout << "Set value of memory location "<< +address << " to "<< +data << "\n";
     memory_map[address] = data;
 }
 

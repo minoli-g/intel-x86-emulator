@@ -13,6 +13,8 @@ RegisterBank::RegisterBank() {
                     {"CS", CS}, {"DS", DS}, {"ES", ES}, {"FS", FS}, {"GS", GS}, {"SS", SS}, 
                     {"EFLAGS", EFLAGS}};
 
+    std::cout.setstate(std::ios_base::failbit);  // Mute the outputs for setup period
+
     this->set("EAX", 0xBF8DB144);
     this->set("EBX", 0xAE5FF4);
     this->set("ECX", 0X88c5cffb);
@@ -33,9 +35,12 @@ RegisterBank::RegisterBank() {
 
     this->set("EFLAGS", 0x246);
 
+    std::cout.clear();  // Unmute output
 }
 
 void RegisterBank::set(std::string name, std::uint32_t value){
+
+    std::cout << "Set value of register "<< name << " to "<< +value << "\n";
 
     if (other_regs.find(name) != other_regs.end()){
         other_regs[name] = value;
@@ -89,24 +94,31 @@ void RegisterBank::set(std::string name, std::uint32_t value){
 }
 
 std::uint32_t RegisterBank::get(std::string name){
+
+    uint32_t value;
     
     if (other_regs.find(name) != other_regs.end()){
-        return other_regs[name];
+        value = other_regs[name];
     }
-    if (gen_32_regs.find(name) != gen_32_regs.end()){
-        return gen_32_regs[name];
+    else if (gen_32_regs.find(name) != gen_32_regs.end()){
+        value = gen_32_regs[name];
     }
-    if (gen_16_regs.find(name) != gen_16_regs.end()){
-        return (std::uint32_t) gen_16_regs[name];
+    else if (gen_16_regs.find(name) != gen_16_regs.end()){
+        value = (std::uint32_t) gen_16_regs[name];
     }
-    if (gen_8h_regs.find(name) != gen_8h_regs.end()){
-        return (std::uint32_t) gen_8h_regs[name];
+    else if (gen_8h_regs.find(name) != gen_8h_regs.end()){
+        value = (std::uint32_t) gen_8h_regs[name];
     }
-    if (gen_8l_regs.find(name) != gen_8l_regs.end()){
-        return (std::uint32_t) gen_8l_regs[name];
+    else if (gen_8l_regs.find(name) != gen_8l_regs.end()){
+        value = (std::uint32_t) gen_8l_regs[name];
     }
-    std::cout << "Erroneous register name " << name << "\n";
-    return 0;
+    else{
+        std::cout << "Erroneous register name " << name << "\n";
+        exit(0);
+    }
+    
+    std::cout << "Read value "<< +value <<" from register " << name << "\n";
+    return value;
 }
 
 void RegisterBank::dumpValues(){
