@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
                     // Check the opcode maps for two-byte opcodes with 0F byte
 
                     if (opcodes::bsf_ops.count(opcode2)) {
-                        bsf(&ir);
+                        bsf(&ir, &rb, &mem, opcode2);
                     }
                     else{
                         std::cout << "Error: Unsupported opcode! \n";

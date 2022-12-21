@@ -1,3 +1,10 @@
 #include "add.hpp"
+#include "mov.hpp"
+#include "and.hpp"
+#include "or.hpp"
+#include "cmp.hpp"
+#include "stack.hpp"
+#include "mul.hpp"
+#include "xor.hpp"
 #include "bsf.hpp"
 // Add other operations' header files below
