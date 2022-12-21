@@ -26,16 +26,16 @@ uint32_t getDisp32(InputReader* ir){
     return disp32;
 }
 
-uint8_t getImm8(InputReader* ir){
-    return getDisp8(ir);
+int8_t getImm8(InputReader* ir){
+    return (int8_t) getDisp8(ir);
 }
 
-uint16_t getImm16(InputReader* ir){
-    return getDisp16(ir);
+int16_t getImm16(InputReader* ir){
+    return (int8_t) getDisp16(ir);
 }
 
-uint32_t getImm32(InputReader* ir){
-    return getDisp32(ir);
+int32_t getImm32(InputReader* ir){
+    return (int8_t) getDisp32(ir);
 }
 
 uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputReader* ir){

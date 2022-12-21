@@ -68,9 +68,9 @@ void add_02(InputReader* ir, RegisterBank* rb, Memory* mem){
 void add_04(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     // Add imm8 to AL.
-    uint8_t imm8 = getImm8(ir);
-    uint32_t al = rb->get("AL");
-    rb->set("AL", al+imm8);
+    int8_t imm8 = getImm8(ir);
+    uint8_t al = rb->get("AL");
+    rb->set("AL", (uint8_t) (al+imm8));
 
     // Set flags - TODO
 }
@@ -79,7 +79,7 @@ void add_83(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     // Add imm8 to r/m32.
     uint8_t modrm = ir->nextByte();
-    uint8_t imm8 = getImm8(ir);
+    int8_t imm8 = getImm8(ir);
 
     if (isRMReg(modrm)){
         std::string rm32 = getRMReg(modrm, REG_32);
