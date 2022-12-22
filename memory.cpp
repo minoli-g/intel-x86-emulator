@@ -21,6 +21,22 @@ void Memory::write(uint32_t address, uint32_t data) {
     memory_map[address] = data;
 }
 
+void Memory::push_stack(uint32_t data, RegisterBank* rb, int size){
+    std::cout << "Pushing data " << +data << " to stack\n";
+    uint32_t stack_ptr = rb->get("ESP");
+    stack_ptr -= size;
+    this->write(stack_ptr, data);
+    rb->set("ESP", stack_ptr);
+}
+
+uint32_t Memory::pop_stack(RegisterBank* rb, int size){
+    std::cout << "Popping data from stack \n";
+    uint32_t stack_ptr = rb->get("ESP");
+    uint32_t value = this->read(stack_ptr);
+    stack_ptr += size;
+    return value;
+}
+
 void Memory::dumpValues(){
     std::cout << "\n-------MEMORY DUMP------- \n" << std::hex;
     for (auto const& [address, data]: memory_map){
