@@ -41,12 +41,12 @@ class RegisterBank {
 
         // Segment registers
 
-        std::uint32_t CS;
-        std::uint32_t DS;
-        std::uint32_t ES;
-        std::uint32_t FS;
-        std::uint32_t GS;
-        std::uint32_t SS;
+        std::uint16_t CS;
+        std::uint16_t DS;
+        std::uint16_t ES;
+        std::uint16_t FS;
+        std::uint16_t GS;
+        std::uint16_t SS;
 
         // Indicator
         std::uint32_t EFLAGS;
@@ -56,6 +56,7 @@ class RegisterBank {
         std::map<std::string, uint16_t> gen_16_regs;
         std::map<std::string, uint8_t> gen_8h_regs;
         std::map<std::string, uint8_t> gen_8l_regs;
+        std::map<std::string, uint16_t> seg_regs;
         std::map<std::string, uint32_t> other_regs;
 
     public:

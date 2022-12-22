@@ -8,10 +8,8 @@ RegisterBank::RegisterBank() {
     gen_16_regs = {{"AX", AX}, {"BX",BX}, {"CX", CX}, {"DX", DX}};
     gen_8h_regs = {{"AH", AH}, {"BH", BH}, {"CH", CH}, {"DH", DH}};
     gen_8l_regs = {{"AL", AL}, {"BL", BL}, {"CL", CL}, {"DL", DL}};
-
-    other_regs = {{"ESI", ESI}, {"EDI", EDI}, {"EBP", EBP}, {"EIP", EIP}, {"ESP", ESP},
-                    {"CS", CS}, {"DS", DS}, {"ES", ES}, {"FS", FS}, {"GS", GS}, {"SS", SS}, 
-                    {"EFLAGS", EFLAGS}};
+    seg_regs = {{"CS", CS}, {"DS", DS}, {"ES", ES}, {"FS", FS}, {"GS", GS}, {"SS", SS}};
+    other_regs = {{"ESI", ESI}, {"EDI", EDI}, {"EBP", EBP}, {"EIP", EIP}, {"ESP", ESP},{"EFLAGS", EFLAGS}};
 
     std::cout.setstate(std::ios_base::failbit);  // Mute the outputs for setup period
 
@@ -42,6 +40,11 @@ void RegisterBank::set(std::string name, std::uint32_t value){
 
     std::cout << "Set value of register "<< name << " to "<< +value << "\n";
 
+    if (seg_regs.find(name) != seg_regs.end()){
+        seg_regs[name] = (uint16_t)value;
+        return;
+    }
+    
     if (other_regs.find(name) != other_regs.end()){
         other_regs[name] = value;
         return;
