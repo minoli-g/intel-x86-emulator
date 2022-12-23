@@ -58,13 +58,13 @@ void pop_8F(InputReader* ir, RegisterBank* rb, Memory* mem){
     }
 }
 
-void pop_1F(RegisterBank* rb, Memory* mem){
+void pop_1F(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     // Pop into DS
     uint16_t pop_value = mem->pop_stack(rb, 2);
     rb->set("DS", pop_value);
 }
-void pop_07(RegisterBank* rb, Memory* mem){
+void pop_07(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     // Pop into ES
     uint16_t pop_value = mem->pop_stack(rb, 2);
