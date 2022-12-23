@@ -4,7 +4,6 @@
 #include "or.hpp"
 #include "cmp.hpp"
 #include "stack.hpp"
-#include "mul.hpp"
 #include "xor.hpp"
 #include "bsf.hpp"
-// Add other operations' header files below
+#include "bsr.hpp"

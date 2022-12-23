@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -std=c++17 -Wall -g
 
-main: main.o input_reader.o register.o memory.o modrm.o instr_utils.o opcodes.o add.o mov.o and.o or.o cmp.o stack.o mul.o xor.o bsf.o
-	$(CC) $(CFLAGS) -o main main.o input_reader.o register.o memory.o modrm.o instr_utils.o opcodes.o add.o mov.o and.o or.o cmp.o stack.o mul.o xor.o bsf.o
+main: main.o input_reader.o register.o memory.o modrm.o instr_utils.o opcodes.o add.o mov.o and.o or.o cmp.o stack.o xor.o bsf.o bsr.o
+	$(CC) $(CFLAGS) -o main main.o input_reader.o register.o memory.o modrm.o instr_utils.o opcodes.o add.o mov.o and.o or.o cmp.o stack.o xor.o bsf.o bsr.o
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp 
@@ -43,11 +43,11 @@ cmp.o: operations/cmp.cpp operations/cmp.hpp
 stack.o: operations/stack.cpp operations/stack.hpp
 	$(CC) $(CFLAGS) -c operations/stack.cpp
 
-mul.o: operations/mul.cpp operations/mul.hpp
-	$(CC) $(CFLAGS) -c operations/mul.cpp
-
 xor.o: operations/xor.cpp operations/xor.hpp
 	$(CC) $(CFLAGS) -c operations/xor.cpp
 
 bsf.o: operations/bsf.hpp operations/bsf.cpp
 	$(CC) $(CFLAGS) -c operations/bsf.cpp
+
+bsr.o: operations/bsr.cpp operations/bsr.hpp
+	$(CC) $(CFLAGS) -c operations/bsr.cpp
