@@ -46,7 +46,7 @@ void or_09(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     if (isRMReg(modrm)){
         std::string rm32 = getRMReg(modrm, REG_32);
-        uint8_t result = rb->get(r32) | rb->get(rm32);
+        uint32_t result = rb->get(r32) | rb->get(rm32);
         rb->set(rm32, result);
     }
     else{
