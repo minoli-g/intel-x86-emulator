@@ -4,12 +4,12 @@
 
 RegisterBank::RegisterBank() {
     
-    gen_32_regs = {{"EAX",EAX}, {"EBX",EBX}, {"ECX",ECX}, {"EDX",EDX}};
-    gen_16_regs = {{"AX", AX}, {"BX",BX}, {"CX", CX}, {"DX", DX}};
-    gen_8h_regs = {{"AH", AH}, {"BH", BH}, {"CH", CH}, {"DH", DH}};
-    gen_8l_regs = {{"AL", AL}, {"BL", BL}, {"CL", CL}, {"DL", DL}};
-    seg_regs = {{"CS", CS}, {"DS", DS}, {"ES", ES}, {"FS", FS}, {"GS", GS}, {"SS", SS}};
-    other_regs = {{"ESI", ESI}, {"EDI", EDI}, {"EBP", EBP}, {"EIP", EIP}, {"ESP", ESP},{"EFLAGS", EFLAGS}};
+    gen_32_regs = {{"EAX",0}, {"EBX",0}, {"ECX",0}, {"EDX",0}};
+    gen_16_regs = {{"AX", 0}, {"BX",0}, {"CX", 0}, {"DX", 0}};
+    gen_8h_regs = {{"AH", 0}, {"BH", 0}, {"CH", 0}, {"DH", 0}};
+    gen_8l_regs = {{"AL", 0}, {"BL", 0}, {"CL", 0}, {"DL", 0}};
+    seg_regs = {{"CS", 0}, {"DS", 0}, {"ES", 0}, {"FS", 0}, {"GS", 0}, {"SS", 0}};
+    other_regs = {{"ESI", 0}, {"EDI", 0}, {"EBP", 0}, {"EIP", 0}, {"ESP", 0},{"EFLAGS", 0}};
 
     flag_bits = {{"CF",0}, {"PF",2}, {"AF",4}, {"ZF",6}, {"SF",7}, {"TF",8}, {"IF",9}, {"DF",10},
                  {"NT",14}, {"RF",16}, {"VM",17}, {"AC",18}, {"VIF",19}, {"VIP",20}, {"ID",21}};
