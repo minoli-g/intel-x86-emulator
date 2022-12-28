@@ -59,10 +59,19 @@ class RegisterBank {
         std::map<std::string, uint16_t> seg_regs;
         std::map<std::string, uint32_t> other_regs;
 
+        // Flag-bit map
+        std::map<std::string, uint8_t> flag_bits;
+
     public:
         RegisterBank();
+
         void set(std::string reg, uint32_t value); 
         std::uint32_t get(std::string reg);
+
+        void setFlag(std::string flag);
+        void clearFlag(std::string flag);
+        bool getFlag(std::string flag);
+
         void dumpValues();
 
 };

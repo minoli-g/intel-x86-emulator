@@ -1,9 +1,9 @@
 #include "register.hpp"
 #include <iostream>
-
+#include <bitset>
 
 RegisterBank::RegisterBank() {
-
+    
     gen_32_regs = {{"EAX",EAX}, {"EBX",EBX}, {"ECX",ECX}, {"EDX",EDX}};
     gen_16_regs = {{"AX", AX}, {"BX",BX}, {"CX", CX}, {"DX", DX}};
     gen_8h_regs = {{"AH", AH}, {"BH", BH}, {"CH", CH}, {"DH", DH}};
@@ -11,6 +11,9 @@ RegisterBank::RegisterBank() {
     seg_regs = {{"CS", CS}, {"DS", DS}, {"ES", ES}, {"FS", FS}, {"GS", GS}, {"SS", SS}};
     other_regs = {{"ESI", ESI}, {"EDI", EDI}, {"EBP", EBP}, {"EIP", EIP}, {"ESP", ESP},{"EFLAGS", EFLAGS}};
 
+    flag_bits = {{"CF",0}, {"PF",2}, {"AF",4}, {"ZF",6}, {"SF",7}, {"TF",8}, {"IF",9}, {"DF",10},
+                 {"NT",14}, {"RF",16}, {"VM",17}, {"AC",18}, {"VIF",19}, {"VIP",20}, {"ID",21}};
+    
     std::cout.setstate(std::ios_base::failbit);  // Mute the outputs for setup period
 
     this->set("EAX", 0xBF8DB144);
@@ -124,6 +127,18 @@ std::uint32_t RegisterBank::get(std::string name){
     return value;
 }
 
+void setFlag(std::string flag){
+
+}
+
+void clearFlag(std::string flag){
+
+}
+
+bool getFlag(std::string flag){
+    return true;
+}
+
 void RegisterBank::dumpValues(){
 
     std::cout << "\n-------REGISTER DUMP------- \n";
@@ -148,4 +163,10 @@ void RegisterBank::dumpValues(){
     for (auto const& [name, reg]: other_regs){
         std::cout << name << " : " <<  reg  << "\n";
     }
+    std::cout << "\n---Flags:--- \n";
+    std::bitset<32> b(get("EFLAGS"));
+    for (auto const& [flag, index]: flag_bits){
+        std::cout << flag << " : " << +b[index] << "\t";
+    }
+    std::cout << "\n";
 }
