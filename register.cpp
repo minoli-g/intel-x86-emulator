@@ -127,7 +127,7 @@ std::uint32_t RegisterBank::get(std::string name){
 void RegisterBank::dumpValues(){
 
     std::cout << "\n-------REGISTER DUMP------- \n";
-    std::cout << "---General purpose registers:--- \n" << std::hex;
+    std::cout << "---General purpose registers:--- \n";
     for (auto const& [name, reg]: gen_32_regs){
         std::cout << name << " : " << reg << "\t";
     }
@@ -148,5 +148,4 @@ void RegisterBank::dumpValues(){
     for (auto const& [name, reg]: other_regs){
         std::cout << name << " : " <<  reg  << "\n";
     }
-    std::cout << std::dec;
 }
