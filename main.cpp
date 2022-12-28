@@ -83,6 +83,10 @@ int main(int argc, char *argv[]) {
                     mov(&ir, &rb, &mem, opcode1);
                 }
 
+                else if (opcodes::or_ops.count(opcode1)){
+                    orOp(&ir, &rb, &mem, opcode1);
+                }
+
                 else if (opcodes::push_ops.count(opcode1)){
                     push(&ir, &rb, &mem, opcode1);
                 }
