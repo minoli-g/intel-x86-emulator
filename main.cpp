@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
                 }
 
                 else if (opcodes::pop_ops.count(opcode1)){
-                    push(&ir, &rb, &mem, opcode1);
+                    pop(&ir, &rb, &mem, opcode1);
                 }
 
                 // Add other operations below after implementing
