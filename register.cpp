@@ -127,16 +127,22 @@ std::uint32_t RegisterBank::get(std::string name){
     return value;
 }
 
-void setFlag(std::string flag){
-
+void RegisterBank::setFlag(std::string flag){
+    int index = flag_bits[flag];
+    uint32_t eflags_new = get("EFLAGS") | (1<<index);
+    set("EFLAGS", eflags_new);
 }
 
-void clearFlag(std::string flag){
-
+void RegisterBank::clearFlag(std::string flag){
+    int index = flag_bits[flag];
+    uint32_t eflags_new = get("EFLAGS") & (0xFFFF - (1<<index));
+    set("EFLAGS", eflags_new);
 }
 
-bool getFlag(std::string flag){
-    return true;
+bool RegisterBank::getFlag(std::string flag){
+    int index = flag_bits[flag];
+    std::bitset<32> b(get("EFLAGS"));
+    return (bool) b[index];
 }
 
 void RegisterBank::dumpValues(){
