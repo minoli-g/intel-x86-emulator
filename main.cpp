@@ -95,6 +95,10 @@ int main(int argc, char *argv[]) {
                     pop(&ir, &rb, &mem, opcode1);
                 }
 
+                else if (opcodes::xor_ops.count(opcode1)){
+                    xorOp(&ir, &rb, &mem, opcode1);
+                }
+
                 // Add other operations below after implementing
 
                 else {
