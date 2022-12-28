@@ -39,7 +39,11 @@ int main(int argc, char *argv[]) {
                     if (opcodes::bsf_ops.count(opcode2)) {
                         bsf(&ir, &rb, &mem, opcode2);
                     }
-                    // Add BSR below
+                    
+                    else if (opcodes::bsr_ops.count(opcode2)) {
+                        bsr(&ir, &rb, &mem, opcode2);
+                    }
+
                     else{
                         std::cout << "Error: Unsupported opcode! \n";
                         exit(0);
