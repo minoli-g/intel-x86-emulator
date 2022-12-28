@@ -12,7 +12,7 @@ RegisterBank::RegisterBank() {
     other_regs = {{"ESI", 0}, {"EDI", 0}, {"EBP", 0}, {"EIP", 0}, {"ESP", 0},{"EFLAGS", 0}};
 
     flag_bits = {{"CF",0}, {"PF",2}, {"AF",4}, {"ZF",6}, {"SF",7}, {"TF",8}, {"IF",9}, {"DF",10},
-                 {"NT",14}, {"RF",16}, {"VM",17}, {"AC",18}, {"VIF",19}, {"VIP",20}, {"ID",21}};
+     {"OF",11}, {"NT",14}, {"RF",16}, {"VM",17}, {"AC",18}, {"VIF",19}, {"VIP",20}, {"ID",21}};
     
     std::cout.setstate(std::ios_base::failbit);  // Mute the outputs for setup period
 
@@ -170,7 +170,7 @@ void RegisterBank::dumpValues(){
         std::cout << name << " : " <<  reg  << "\n";
     }
     std::cout << "\n---Flags:--- \n";
-    std::bitset<32> b(get("EFLAGS"));
+    std::bitset<32> b(other_regs["EFLAGS"]);
     for (auto const& [flag, index]: flag_bits){
         std::cout << flag << " : " << +b[index] << "\t";
     }
