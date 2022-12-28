@@ -1,4 +1,5 @@
 #include "instr_utils.hpp"
+#include <bitset>
 
 std::string reg_names_32bit[] = {"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI" };
 
@@ -68,4 +69,41 @@ uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputRead
     
     std::cout << "Effective addr of SIB byte "<<sib<<" is "<< +(base_value + scaled_value) <<"\n";
     return base_value + scaled_value; 
+}
+
+void setFlagGroup(long long int value, int size, RegisterBank* rb){
+
+    // Check the value and size of its allocated space, and set flags accordingly
+
+    if (value > ((1<<size)-1) ){ 
+        rb->setFlag("CF");
+    }
+    else if (value != ( value & ((1<<size)-1) )){
+        rb->setFlag("OF");
+    }
+
+    if (value>0){
+        rb->clearFlag("SF");
+        rb->clearFlag("ZF");
+    }
+    else if (value<0){
+        rb->setFlag("SF");
+        rb->clearFlag("ZF");
+    }
+    else {
+        rb->setFlag("ZF");
+    }
+
+    uint8_t lsb = value & 0xFF;
+    std::bitset<8> b(lsb);
+    int parity = 0;
+    for (int i=0; i<8; i++){
+        if (b[i]==1){ parity++; }
+    }
+    if (parity%2==0){
+        rb->setFlag("PF");
+    }
+    else {
+        rb->clearFlag("PF");
+    }
 }

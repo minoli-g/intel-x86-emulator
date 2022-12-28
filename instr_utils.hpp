@@ -6,6 +6,7 @@
 #include "input_reader.hpp"
 
 uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputReader* ir);
+void setFlagGroup(long long int value, int size, RegisterBank* rb);
 
 uint8_t getDisp8(InputReader* ir);
 uint16_t getDisp16(InputReader* ir);
