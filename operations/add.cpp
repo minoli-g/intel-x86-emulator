@@ -8,19 +8,23 @@ void add_00(InputReader* ir, RegisterBank* rb, Memory* mem){
     uint8_t modrm = ir->nextByte();
 
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
+    uint8_t op1 = rb->get(r8);
+    uint32_t op2;
 
     if (isRMReg(modrm)){
         std::string rm8 = getRMReg(modrm, REG_8);
-        uint8_t result = rb->get(r8)+ rb->get(rm8);
-        rb->set(rm8, result);
+        op2 = rb->get(rm8);
+        rb->set(rm8, (op1+op2));
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
-        uint32_t result = rb->get(r8) + mem->read(rm_mem);
-        mem->write(rm_mem, result);
+        op2 = mem->read(rm_mem);
+        mem->write(rm_mem, (op1+op2));
     }
 
-    // Set flags - TODO
+    // Set flags
+    long long int temp = (long long int)op1 + (long long int)op2;
+    setFlagGroup(temp, 8, rb);
 }
 
 void add_01(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -29,19 +33,23 @@ void add_01(InputReader* ir, RegisterBank* rb, Memory* mem){
     uint8_t modrm = ir->nextByte();
 
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
+    uint32_t op1 = rb->get(r32);
+    uint32_t op2;
 
     if (isRMReg(modrm)){
         std::string rm32 = getRMReg(modrm, REG_32);
-        uint32_t result = rb->get(r32)+ rb->get(rm32);
-        rb->set(rm32, result);
+        op2 = rb->get(rm32);
+        rb->set(rm32, (op1+op2));
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
-        uint32_t result = rb->get(r32) + mem->read(rm_mem);
-        mem->write(rm_mem, result);
+        op2 = mem->read(rm_mem);
+        mem->write(rm_mem, (op1+op2));
     }
 
-    // Set flags - TODO
+    // Set flags 
+    long long int temp = (long long int)op1 + (long long int)op2;
+    setFlagGroup(temp, 32, rb);
 }
 
 void add_02(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -50,19 +58,23 @@ void add_02(InputReader* ir, RegisterBank* rb, Memory* mem){
     uint8_t modrm = ir->nextByte();
 
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
+    uint32_t op1;
+    uint8_t op2 = rb->get(r8);
 
     if (isRMReg(modrm)){
         std::string rm8 = getRMReg(modrm, REG_8);
-        uint8_t result = rb->get(r8)+ rb->get(rm8);
-        rb->set(r8, result);
+        op1 = rb->get(rm8);
+        rb->set(r8, (op1+op2));
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
-        uint8_t result = (uint8_t) (rb->get(r8) + mem->read(rm_mem));
-        rb->set(r8, result);
+        op1 = mem->read(rm_mem);
+        rb->set(r8, (op1+op2));
     }
 
-    // Set flags - TODO
+    // Set flags
+    long long int temp = (long long int)op1 + (long long int)op2;
+    setFlagGroup(temp, 8, rb);
 }
 
 void add_04(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -72,7 +84,9 @@ void add_04(InputReader* ir, RegisterBank* rb, Memory* mem){
     uint8_t al = rb->get("AL");
     rb->set("AL", (uint8_t) (al+imm8));
 
-    // Set flags - TODO
+    // Set flags
+    long long int temp = (long long int)imm8 + (long long int)al;
+    setFlagGroup(temp, 8, rb);
 }
 
 void add_83(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -80,19 +94,22 @@ void add_83(InputReader* ir, RegisterBank* rb, Memory* mem){
     // Add imm8 to r/m32.
     uint8_t modrm = ir->nextByte();
     int8_t imm8 = getImm8(ir);
+    uint32_t op2;
 
     if (isRMReg(modrm)){
         std::string rm32 = getRMReg(modrm, REG_32);
-        uint32_t result = imm8 + rb->get(rm32);
-        rb->set(rm32, result);
+        op2 = rb->get(rm32);
+        rb->set(rm32, (imm8+op2));
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
-        uint32_t result = imm8 + mem->read(rm_mem);
-        mem->write(rm_mem, result);
+        op2 = mem->read(rm_mem);
+        mem->write(rm_mem, (imm8+op2));
     }
 
-    // Set flags - TODO
+    // Set flags 
+    long long int temp = (long long int)imm8 + (long long int)op2;
+    setFlagGroup(temp, 32, rb);
 }
 
 void add(InputReader* ir, RegisterBank* rb, Memory* mem, uint8_t opcode){
