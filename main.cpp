@@ -75,6 +75,10 @@ int main(int argc, char *argv[]) {
                     add(&ir, &rb, &mem, opcode1);
                 }
 
+                else if (opcodes::cmp_ops.count(opcode1)){
+                    cmp(&ir, &rb, &mem, opcode1);
+                }
+
                 else if (opcodes::and_ops.count(opcode1)){
                     andOp(&ir, &rb, &mem, opcode1);
                 }
