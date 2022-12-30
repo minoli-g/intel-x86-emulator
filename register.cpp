@@ -41,7 +41,9 @@ RegisterBank::RegisterBank() {
 
 void RegisterBank::set(std::string name, std::uint32_t value){
 
-    std::cout << "Set value of register "<< name << " to "<< +value << "\n";
+    if (name!="EFLAGS"){
+        std::cout << "Set value of register "<< name << " to "<< +value << "\n";
+    }
 
     if (seg_regs.find(name) != seg_regs.end()){
         seg_regs[name] = (uint16_t)value;
@@ -123,7 +125,9 @@ std::uint32_t RegisterBank::get(std::string name){
         exit(0);
     }
     
-    std::cout << "Read value "<< +value <<" from register " << name << "\n";
+    if (name!="EFLAGS"){
+        std::cout << "Read value "<< +value <<" from register " << name << "\n";
+    }
     return value;
 }
 
