@@ -67,7 +67,7 @@ uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputRead
         scaled_value += rb->get(reg_names_32bit[index]) * (1<<scale);
     }
     
-    std::cout << "Effective addr of SIB byte "<<sib<<" is "<< +(base_value + scaled_value) <<"\n";
+    std::cout << "Effective addr of SIB byte "<<+sib<<" is "<< +(base_value + scaled_value) <<"\n";
     return base_value + scaled_value; 
 }
 
