@@ -9,6 +9,9 @@ void or_0C(InputReader* ir, RegisterBank* rb, Memory* mem){
     uint8_t imm8 = getImm8(ir);
 
     rb->set("AL", al|imm8);
+
+    // Set flags - No overflow possible, so no need to cast to long
+    setFlagGroup(al|imm8, 8, rb); 
 }
 
 void or_0D(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -18,6 +21,9 @@ void or_0D(InputReader* ir, RegisterBank* rb, Memory* mem){
     uint32_t imm32 = getImm32(ir);
 
     rb->set("EAX", eax|imm32);
+
+    // Set flags
+    setFlagGroup(eax|imm32, 32, rb);
 }
 
 void or_08(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -30,11 +36,13 @@ void or_08(InputReader* ir, RegisterBank* rb, Memory* mem){
         std::string rm8 = getRMReg(modrm, REG_8);
         uint8_t result = rb->get(r8) | rb->get(rm8);
         rb->set(rm8, result);
+        setFlagGroup(result, 8, rb);
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
         uint32_t result = rb->get(r8) | mem->read(rm_mem);
         mem->write(rm_mem, result);
+        setFlagGroup(result, 32, rb);
     }
 }
 
@@ -48,11 +56,13 @@ void or_09(InputReader* ir, RegisterBank* rb, Memory* mem){
         std::string rm32 = getRMReg(modrm, REG_32);
         uint32_t result = rb->get(r32) | rb->get(rm32);
         rb->set(rm32, result);
+        setFlagGroup(result, 32, rb);
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
         uint32_t result = rb->get(r32) | mem->read(rm_mem);
         mem->write(rm_mem, result);
+        setFlagGroup(result, 32, rb);
     }
 }
 
