@@ -78,9 +78,10 @@ void setFlagGroup(long long int value, int size, RegisterBank* rb){
     if (value > ((1<<size)-1) ){ 
         rb->setFlag("CF");
     }
-    else if (value != ( value & ((1<<size)-1) )){
-        rb->setFlag("OF");
-    }
+    // TODO - Fix OF setting condition
+    //else if (value != ( value & ((1<<size)-1) )){
+    //    rb->setFlag("OF");
+    //}
 
     if (value>0){
         rb->clearFlag("SF");
