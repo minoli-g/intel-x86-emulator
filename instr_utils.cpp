@@ -74,14 +74,23 @@ uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputRead
 void setFlagGroup(long long int value, int size, RegisterBank* rb){
 
     // Check the value and size of its allocated space, and set flags accordingly
+    // Flags affected - CF, OF, SF, ZF, PF
 
-    if (value > ((1<<size)-1) ){ 
+    long long int max_unsigned_val = (1<<size)-1;      // Fill with ones, read as unsigned positive
+    long long int min_signed_val = 1-((max_unsigned_val+1)/2);    // E.g.: 255 to -127
+
+    if (value > max_unsigned_val){ 
         rb->setFlag("CF");
+        rb->clearFlag("OF");
     }
-    // TODO - Fix OF setting condition
-    //else if (value != ( value & ((1<<size)-1) )){
-    //    rb->setFlag("OF");
-    //}
+    else if (value < min_signed_val){
+        rb->setFlag("OF");
+        rb->clearFlag("CF");
+    }
+    else {
+        rb->clearFlag("CF");
+        rb->clearFlag("OF");
+    }
 
     if (value>0){
         rb->clearFlag("SF");
