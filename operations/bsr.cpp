@@ -17,11 +17,13 @@ void bsr_BD(InputReader* ir, RegisterBank* rb, Memory* mem){
         for (int i=0; i<b.size(); i++){
             if (b[i]){
                 // Set ZF to 0
+                rb->clearFlag("ZF");
                 rb->set(rm32, (uint32_t)i);
                 return;
             }
         }
         // Set ZF to 1
+        rb->setFlag("ZF");
         return;
     }
     else{
@@ -32,11 +34,13 @@ void bsr_BD(InputReader* ir, RegisterBank* rb, Memory* mem){
         for (int i=0; i<b.size(); i++){
             if (b[i]){
                 // Set ZF to 0
+                rb->clearFlag("ZF");
                 mem->write(rm_mem, (uint32_t)i);
                 return;
             }
         }
         // Set ZF to 1
+        rb->setFlag("ZF");
         return;
     }
 };
