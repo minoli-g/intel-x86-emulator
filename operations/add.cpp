@@ -93,17 +93,19 @@ void add_83(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     // Add imm8 to r/m32.
     uint8_t modrm = ir->nextByte();
-    int8_t imm8 = getImm8(ir);
+    int8_t imm8;
     uint32_t op2;
 
     if (isRMReg(modrm)){
         std::string rm32 = getRMReg(modrm, REG_32);
         op2 = rb->get(rm32);
+        imm8 = getImm8(ir);
         rb->set(rm32, (imm8+op2));
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
         op2 = mem->read(rm_mem);
+        imm8 = getImm8(ir);
         mem->write(rm_mem, (imm8+op2));
     }
 
