@@ -42,7 +42,7 @@ int16_t getImm16(InputReader* ir){
 }
 
 int32_t getImm32(InputReader* ir){
-    int32_t ans = (int32_t) getDisp8(ir);
+    int32_t ans = (int32_t) getDisp32(ir);
     // Imm data is signed - show it as a decimal with the sign
     std::cout << std::dec << "Read Imm32 data decimal value " << +ans <<"\n" << std::hex;
     return ans;
