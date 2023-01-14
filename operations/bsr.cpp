@@ -6,8 +6,9 @@
 
 void bsr_BD(InputReader* ir, RegisterBank* rb, Memory* mem){
     
-    // Bit scan reverse on r/m32.
+    // Bit scan reverse on r/m32, write to r32.
     uint8_t modrm = ir->nextByte();
+    std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
     
     if (isRMReg(modrm)){
         std::string rm32 = getRMReg(modrm, REG_32);
@@ -18,7 +19,7 @@ void bsr_BD(InputReader* ir, RegisterBank* rb, Memory* mem){
             if (b[i]){
                 // Set ZF to 0
                 rb->clearFlag("ZF");
-                rb->set(rm32, (uint32_t)i);
+                rb->set(r32, (uint32_t)i);
                 return;
             }
         }
@@ -35,7 +36,7 @@ void bsr_BD(InputReader* ir, RegisterBank* rb, Memory* mem){
             if (b[i]){
                 // Set ZF to 0
                 rb->clearFlag("ZF");
-                mem->write(rm_mem, (uint32_t)i);
+                rb->set(r32, (uint32_t)i);
                 return;
             }
         }
