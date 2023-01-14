@@ -14,7 +14,7 @@ void bsr_BD(InputReader* ir, RegisterBank* rb, Memory* mem){
         uint32_t operand = rb->get(rm32);
         std::bitset<32> b(operand);
 
-        for (int i=0; i<b.size(); i++){
+        for (int i=b.size()-1; i>=0; i--){
             if (b[i]){
                 // Set ZF to 0
                 rb->clearFlag("ZF");
@@ -31,7 +31,7 @@ void bsr_BD(InputReader* ir, RegisterBank* rb, Memory* mem){
         uint32_t operand = mem->read(rm_mem);
         std::bitset<32> b(operand);
 
-        for (int i=0; i<b.size(); i++){
+        for (int i=b.size()-1; i>=0; i--){
             if (b[i]){
                 // Set ZF to 0
                 rb->clearFlag("ZF");
