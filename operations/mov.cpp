@@ -4,7 +4,7 @@
 
 void mov_88(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    //MOV r/m8,r8
+    std::cout << "88 - MOV r/m8,r8 \n";
     uint8_t modrm = ir->nextByte();
 
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
@@ -23,7 +23,7 @@ void mov_88(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void mov_89(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    //MOV r/m32,r32
+    std::cout << "89 - MOV r/m32,r32 \n";
     uint8_t modrm = ir->nextByte();
 
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
@@ -42,7 +42,7 @@ void mov_89(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void mov_8A(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    //MOV r8,r/m8
+    std::cout << "8A - MOV r8,r/m8 \n";
     uint8_t modrm = ir->nextByte();
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
     uint8_t rm8;
@@ -60,7 +60,7 @@ void mov_8A(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void mov_8B(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    //MOV r32,r/m32
+    std::cout << "8B - MOV r32,r/m32 \n";
     uint8_t modrm = ir->nextByte();
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
     uint32_t rm32;

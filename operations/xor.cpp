@@ -4,7 +4,7 @@
 
 void xor_34(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    //XOR AL, imm8
+    std::cout << "34 - XOR AL, imm8 \n";
     uint8_t al = rb->get("AL");
     uint8_t imm8 = getImm8(ir);
 
@@ -16,7 +16,7 @@ void xor_34(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void xor_35(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // XOR EAX, imm32
+    std::cout << "35 - XOR EAX, imm32 \n";
     uint32_t eax = rb->get("EAX");
     uint32_t imm32 = getImm32(ir);
 
@@ -28,7 +28,7 @@ void xor_35(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void xor_30(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // XOR r/m8, r8
+    std::cout << "30 - XOR r/m8, r8 \n";
     uint8_t modrm = ir->nextByte();
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
 
@@ -48,7 +48,7 @@ void xor_30(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void xor_31(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // XOR r/m32, r32
+    std::cout << "31 - XOR r/m32, r32 \n";
     uint8_t modrm = ir->nextByte();
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
 

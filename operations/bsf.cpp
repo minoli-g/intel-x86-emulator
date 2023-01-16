@@ -6,7 +6,7 @@
 
 void bsf_BC(InputReader* ir, RegisterBank* rb, Memory* mem){
     
-    // Bit scan forward on r/m32, write to r32.
+    std::cout << "BC - Bit scan forward on r/m32, write to r32 \n";
     uint8_t modrm = ir->nextByte();
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
     

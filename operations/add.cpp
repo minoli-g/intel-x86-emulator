@@ -4,7 +4,7 @@
 
 void add_00(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // 00/r - Add r8 to r/m8
+    std::cout << "00 - Add r8 to r/m8 \n";
     uint8_t modrm = ir->nextByte();
 
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
@@ -29,7 +29,7 @@ void add_00(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void add_01(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Add r32 to r/m32
+    std::cout << "01 - Add r32 to r/m32 \n";
     uint8_t modrm = ir->nextByte();
 
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
@@ -54,7 +54,7 @@ void add_01(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void add_02(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Add r/m8 to r8
+    std::cout << "02 - Add r/m8 to r8 \n";
     uint8_t modrm = ir->nextByte();
 
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
@@ -79,7 +79,7 @@ void add_02(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void add_04(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Add imm8 to AL.
+    std::cout << "04 - Add imm8 to AL \n";
     int8_t imm8 = getImm8(ir);
     uint8_t al = rb->get("AL");
     rb->set("AL", (uint8_t) (al+imm8));
@@ -91,7 +91,7 @@ void add_04(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void add_83(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Add imm8 to r/m32.
+    std::cout << "83 - Add imm8 to r/m32 \n";
     uint8_t modrm = ir->nextByte();
     int8_t imm8;
     uint32_t op2;

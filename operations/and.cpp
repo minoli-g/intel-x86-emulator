@@ -4,7 +4,7 @@
 
 void and_24(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // AND AL and imm8
+    std::cout << "24 - AND AL and imm8 \n";
     uint8_t al = rb->get("AL");
     uint8_t imm8 = getImm8(ir);
 
@@ -16,7 +16,7 @@ void and_24(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void and_25(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // AND EAX and imm32
+    std::cout << "25 - AND EAX and imm32 \n";
     uint32_t eax = rb->get("EAX");
     uint32_t imm32 = getImm32(ir);
 
@@ -28,7 +28,7 @@ void and_25(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void and_20(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // AND r/m8, r8
+    std::cout << "20 - AND r/m8, r8 \n";
     uint8_t modrm = ir->nextByte();
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
 
@@ -48,7 +48,7 @@ void and_20(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void and_21(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // AND r/m32, r32
+    std::cout << "21 - AND r/m32, r32 \n";
     uint8_t modrm = ir->nextByte();
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
 
@@ -67,7 +67,7 @@ void and_21(InputReader* ir, RegisterBank* rb, Memory* mem){
 }
 void and_22(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // AND r8, r/m8
+    std::cout << "22 - AND r8, r/m8 \n";
     uint8_t modrm = ir->nextByte();
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
     uint8_t rm8;

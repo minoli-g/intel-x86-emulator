@@ -4,7 +4,7 @@
 
 void or_0C(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // OR AL and imm8
+    std::cout << "0C - OR AL and imm8 \n";
     uint8_t al = rb->get("AL");
     uint8_t imm8 = getImm8(ir);
 
@@ -16,7 +16,7 @@ void or_0C(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void or_0D(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // OR EAX and imm32
+    std::cout << "0D - OR EAX and imm32 \n";
     uint32_t eax = rb->get("EAX");
     uint32_t imm32 = getImm32(ir);
 
@@ -28,7 +28,7 @@ void or_0D(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void or_08(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // OR r/m8, r8
+    std::cout << "08 - OR r/m8, r8 \n";
     uint8_t modrm = ir->nextByte();
     std::string r8 = getRegFromIndex(getReg(modrm), REG_8);
 
@@ -48,7 +48,7 @@ void or_08(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void or_09(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // OR r/m32, r32
+    std::cout << "09 - OR r/m32, r32 \n";
     uint8_t modrm = ir->nextByte();
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
 

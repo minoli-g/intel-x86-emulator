@@ -4,7 +4,7 @@
 
 void push_50(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Push r32
+    std::cout << "50 - Push r32 \n";
     uint8_t modrm = ir->nextByte();
     std::string r32 = getRegFromIndex(getReg(modrm), REG_32);
     uint32_t reg_value = rb->get(r32);
@@ -13,13 +13,13 @@ void push_50(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void push_6A(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Push imm8
+    std::cout << "6A - Push imm8 \n";
     uint8_t imm8 = (uint8_t) getImm8(ir);
     mem->push_stack(imm8, rb, 1);
 }
 void push_68(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Push imm32
+    std::cout << "68 - Push imm32 \n";
     uint32_t imm32 = (uint32_t) getImm32(ir);
     mem->push_stack(imm32, rb, 4);
 }
@@ -44,7 +44,7 @@ void push(InputReader* ir, RegisterBank* rb, Memory* mem, uint8_t opcode){
 
 void pop_8F(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Pop into rm32
+    std::cout << "8F - Pop into rm32 \n";
     uint8_t modrm = ir->nextByte();
     uint32_t pop_value = mem->pop_stack(rb, 4);
 
@@ -60,13 +60,13 @@ void pop_8F(InputReader* ir, RegisterBank* rb, Memory* mem){
 
 void pop_1F(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Pop into DS
+    std::cout << "1F - Pop into DS \n";
     uint16_t pop_value = mem->pop_stack(rb, 2);
     rb->set("DS", pop_value);
 }
 void pop_07(InputReader* ir, RegisterBank* rb, Memory* mem){
 
-    // Pop into ES
+    std::cout << "07 - Pop into ES \n";
     uint16_t pop_value = mem->pop_stack(rb, 2);
     rb->set("ES", pop_value);
 }
