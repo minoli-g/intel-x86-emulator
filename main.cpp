@@ -1,4 +1,4 @@
-#include "emulator.hpp"
+#include "src/emulator.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -6,7 +6,6 @@
 
 int main(int argc, char* argv[])
 {
-
 	Emulator& emulator = Emulator::getInstance();
 	emulator.run(argv[1]);
 }

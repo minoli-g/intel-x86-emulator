@@ -4,6 +4,7 @@ project(intel-x86-emulator LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB SOURCES *.cpp *.hpp **/*.cpp **/*.hpp)
+file(GLOB_RECURSE CPP_SOURCES "src/*.cpp")
+file(GLOB_RECURSE HPP_SOURCES "src/*.hpp")
 
-add_executable(intel-x86-emulator ${SOURCES})
+add_executable(intel-x86-emulator main.cpp ${CPP_SOURCES} ${HPP_SOURCES})
