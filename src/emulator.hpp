@@ -1,3 +1,5 @@
+#pragma once
+
 #include "input_reader.hpp"
 #include "memory.hpp"
 #include "opcodes.hpp"
