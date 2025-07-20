@@ -34,7 +34,7 @@ std::uint8_t InputReader::nextByte()
 	}
 }
 
-bool InputReader::fileRemaining()
+bool InputReader::fileRemaining() const
 {
 	return this->input_file.good();
 }

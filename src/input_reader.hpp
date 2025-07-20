@@ -14,7 +14,7 @@ public:
 	InputReader(std::string path);
 	~InputReader();
 	std::uint8_t nextByte();
-	bool fileRemaining();
+	bool fileRemaining() const;
 };
 
 #endif
