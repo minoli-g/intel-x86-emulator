@@ -1,6 +1,6 @@
 #include "mov.hpp"
 #include "../modrm.hpp"
-#include "../instr_utils.hpp"
+#include "../instruction_utils.hpp"
 
 void mov_88(InputReader* ir, RegisterBank* rb, Memory* mem){
 

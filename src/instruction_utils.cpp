@@ -1,13 +1,14 @@
-#include "instr_utils.hpp"
+#include "instruction_utils.hpp"
 #include <bitset>
 
-std::string reg_names_32bit[] = {"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI" };
+const std::vector<std::string> InstructionUtils::reg_names_32bit = {
+	"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI"};
 
-uint8_t getDisp8(InputReader* ir){
+uint8_t InstructionUtils::getDisp8(InputReader* ir){
     return ir->nextByte();
 }
 
-uint16_t getDisp16(InputReader* ir){
+uint16_t InstructionUtils::getDisp16(InputReader* ir){
     uint16_t disp16 = 0;
 
     // Concatenate the next 2 bytes
@@ -17,7 +18,7 @@ uint16_t getDisp16(InputReader* ir){
     return disp16;
 }
 
-uint32_t getDisp32(InputReader* ir){
+uint32_t InstructionUtils::getDisp32(InputReader* ir){
     uint32_t disp32 = 0;
 
     // Concatenate the 4 bytes following
@@ -27,28 +28,28 @@ uint32_t getDisp32(InputReader* ir){
     return disp32;
 }
 
-int8_t getImm8(InputReader* ir){
+int8_t InstructionUtils::getImm8(InputReader* ir){
     int8_t ans = (int8_t) getDisp8(ir);
     // Imm data is signed - show it as a decimal with the sign
     std::cout << std::dec << "Read Imm8 data decimal value " << +ans <<"\n" << std::hex; 
     return ans;
 }
 
-int16_t getImm16(InputReader* ir){
+int16_t InstructionUtils::getImm16(InputReader* ir){
     int16_t ans = (int16_t) getDisp16(ir);
     // Imm data is signed - show it as a decimal with the sign
     std::cout << std::dec << "Read Imm16 data decimal value " << +ans <<"\n" << std::hex;
     return ans;
 }
 
-int32_t getImm32(InputReader* ir){
+int32_t InstructionUtils::getImm32(InputReader* ir){
     int32_t ans = (int32_t) getDisp32(ir);
     // Imm data is signed - show it as a decimal with the sign
     std::cout << std::dec << "Read Imm32 data decimal value " << +ans <<"\n" << std::hex;
     return ans;
 }
 
-uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputReader* ir){
+uint32_t InstructionUtils::getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputReader* ir){
 
     int scale = sib >> 6;
     int index = (sib>>3)&7;
@@ -71,7 +72,7 @@ uint32_t getSIBMemLocation(uint8_t sib, RegisterBank* rb, uint8_t mod, InputRead
     return base_value + scaled_value; 
 }
 
-void setFlagGroup(long long int value, int size, RegisterBank* rb){
+void InstructionUtils::setFlagGroup(long long int value, int size, RegisterBank* rb){
 
     // Check the value and size of its allocated space, and set flags accordingly
     // Flags affected - CF, OF, SF, ZF, PF

@@ -1,25 +1,25 @@
 #include "cmp.hpp"
 #include "../modrm.hpp"
-#include "../instr_utils.hpp"
+#include "../instruction_utils.hpp"
 
 void cmp_3C(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     std::cout << "3C - Compare AL, imm8 \n";
     uint8_t al = rb->get("AL");
-    int8_t imm8 = getImm8(ir);
+    int8_t imm8 = InstructionUtils::getImm8(ir);
 
     long long int temp = (long long int)al - (long long int)imm8;
-    setFlagGroup(temp, 8, rb);
+    InstructionUtils::setFlagGroup(temp, 8, rb);
 }
 
 void cmp_3D(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     std::cout << "3D - Compare EAX and imm32 \n";
     uint32_t eax = rb->get("EAX");
-    int32_t imm32 = getImm32(ir);
+    int32_t imm32 = InstructionUtils::getImm32(ir);
 
     long long int temp = (long long int)eax - (long long int)imm32;
-    setFlagGroup(temp, 32, rb);
+    InstructionUtils::setFlagGroup(temp, 32, rb);
 }
 
 void cmp_38(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -31,12 +31,12 @@ void cmp_38(InputReader* ir, RegisterBank* rb, Memory* mem){
     if (isRMReg(modrm)){
         std::string rm8 = getRMReg(modrm, REG_8);
         long long int temp = (long long int)(rb->get(rm8)) - (long long int)(rb->get(r8));
-        setFlagGroup(temp, 8, rb);
+        InstructionUtils::setFlagGroup(temp, 8, rb);
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
         long long int temp = (long long int)(mem->read(rm_mem)) - (long long int)(rb->get(r8));
-        setFlagGroup(temp, 32, rb);
+        InstructionUtils::setFlagGroup(temp, 32, rb);
     }
 }
 
@@ -49,12 +49,12 @@ void cmp_39(InputReader* ir, RegisterBank* rb, Memory* mem){
     if (isRMReg(modrm)){
         std::string rm32 = getRMReg(modrm, REG_8);
         long long int temp = (long long int)(rb->get(rm32)) - (long long int)(rb->get(r32));
-        setFlagGroup(temp, 32, rb);
+        InstructionUtils::setFlagGroup(temp, 32, rb);
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
         long long int temp = (long long int)(mem->read(rm_mem)) - (long long int)(rb->get(r32));
-        setFlagGroup(temp, 32, rb);
+        InstructionUtils::setFlagGroup(temp, 32, rb);
     }
 }
 

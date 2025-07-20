@@ -1,6 +1,6 @@
 #include "stack.hpp"
 #include "../modrm.hpp"
-#include "../instr_utils.hpp"
+#include "../instruction_utils.hpp"
 
 void push_50(InputReader* ir, RegisterBank* rb, Memory* mem){
 
@@ -14,13 +14,13 @@ void push_50(InputReader* ir, RegisterBank* rb, Memory* mem){
 void push_6A(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     std::cout << "6A - Push imm8 \n";
-    uint8_t imm8 = (uint8_t) getImm8(ir);
+    uint8_t imm8 = (uint8_t) InstructionUtils::getImm8(ir);
     mem->push_stack(imm8, rb, 1);
 }
 void push_68(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     std::cout << "68 - Push imm32 \n";
-    uint32_t imm32 = (uint32_t) getImm32(ir);
+    uint32_t imm32 = (uint32_t) InstructionUtils::getImm32(ir);
     mem->push_stack(imm32, rb, 4);
 }
 
