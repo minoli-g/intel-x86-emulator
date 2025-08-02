@@ -14,4 +14,5 @@ TEST(EmulatorE2ETests, Test01)
 
     EXPECT_NE(&testEmulator.getRegisterBank(), nullptr);
     EXPECT_TRUE(StateTestUtils::areRegisterBanksEqual(rb, testEmulator.getRegisterBank()));
+    EXPECT_TRUE(StateTestUtils::areMemoryBanksEqual(mem, testEmulator.getMemory()));
 }
