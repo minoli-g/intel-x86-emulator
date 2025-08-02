@@ -2,6 +2,7 @@
 
 #include "../src/memory.hpp"
 #include "../src/register.hpp"
+#include "../src/utils/csv_reader.hpp"
 #include <fstream>
 #include <memory>
 #include <unordered_set>
@@ -21,37 +22,41 @@ public:
 		std::ifstream stateFile;
 		stateFile.open(filePath);
 
-		if(!stateFile)
+		if (!stateFile)
 		{
 			throw std::runtime_error("File does not exist.");
 		}
 
 		std::string line;
-		while(std::getline(stateFile, line))
+		while (std::getline(stateFile, line))
 		{
-			if(line.empty())
-				throw std::runtime_error("File format incorrect");
-			size_t delimPos = line.find(' ');
-			if(delimPos == std::string::npos)
+			if (line.empty())
 				throw std::runtime_error("File format incorrect");
 
-			std::string key = line.substr(0, delimPos);
-			std::string valueStr = line.substr(delimPos + 1);
-			// TODO address possible nullptr below - do a try catch in whole block
-			uint32_t value = static_cast<uint32_t>(std::stoul(valueStr, nullptr, 16));
+			auto constructStateFunc = [&](CsvRow& row) {
+				if (row.size() != 2)
+				{
+					throw std::runtime_error("File format incorrect - no 2 items");
+				}
+				std::string key{row[0]};
+				uint32_t value =
+					static_cast<uint32_t>(std::stoul(std::string(row[1]), nullptr, 16));
+				// todo handle nullptr
+				if (registerNames.find(key) != registerNames.end())
+					rb.set(key, value);
+				else if (flagNames.find(key) != flagNames.end())
+				{
+					if (value == 1)
+						rb.setFlag(key);
+				}
+				else
+				{
+					uint32_t keyInt = static_cast<uint32_t>(std::stoul(key, nullptr, 16));
+					mem.write(keyInt, value);
+				}
+			};
 
-			if(registerNames.find(key) != registerNames.end())
-				rb.set(key, value);
-			else if(flagNames.find(key) != flagNames.end())
-			{
-				if (value==1)
-					rb.setFlag(key);
-			}
-			else
-			{
-				uint32_t keyInt = static_cast<uint32_t>(std::stoul(key, nullptr, 16));
-				mem.write(keyInt, value);
-			}
+			CsvReaderUtils::getCsvRowValues(line, ',', constructStateFunc);
 		}
 		stateFile.close();
 	}
@@ -59,14 +64,14 @@ public:
 	// TODO make the args const after adding consts in RB and Mem
 	static bool areRegisterBanksEqual(RegisterBank& r1, RegisterBank& r2)
 	{
-		for(auto& name : registerNames)
+		for (auto& name : registerNames)
 		{
-			if(r1.get(name) != r2.get(name))
+			if (r1.get(name) != r2.get(name))
 				return false;
 		}
-		for(auto& name : flagNames)
+		for (auto& name : flagNames)
 		{
-			if(r1.getFlag(name) != r2.getFlag(name))
+			if (r1.getFlag(name) != r2.getFlag(name))
 				return false;
 		}
 		return true;
