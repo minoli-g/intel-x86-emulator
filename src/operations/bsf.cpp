@@ -1,6 +1,6 @@
 #include "bsf.hpp"
 #include "../modrm.hpp"
-#include "../instr_utils.hpp"
+#include "../instruction_utils.hpp"
 
 #include <bitset>
 

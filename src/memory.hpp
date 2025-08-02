@@ -5,10 +5,12 @@
 #include <cstdint>
 #include <unordered_map>
 
+using MEMORY_MAP = std::unordered_map <uint32_t, uint32_t>;
+
 class Memory {
 
     private:
-        std::unordered_map <uint32_t, uint32_t> memory_map;
+        MEMORY_MAP memory_map;
     
     public:
         Memory();
@@ -18,6 +20,7 @@ class Memory {
         uint32_t pop_stack(RegisterBank* rb, int size);
         void dumpValues();
 
+        const MEMORY_MAP& getMemoryLayout() { return memory_map; }
 };
 
 #endif

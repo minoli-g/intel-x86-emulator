@@ -1,6 +1,6 @@
 #include "add.hpp"
 #include "../modrm.hpp"
-#include "../instr_utils.hpp"
+#include "../instruction_utils.hpp"
 
 void add_00(InputReader* ir, RegisterBank* rb, Memory* mem){
 
@@ -24,7 +24,7 @@ void add_00(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     // Set flags
     long long int temp = (long long int)op1 + (long long int)op2;
-    setFlagGroup(temp, 8, rb);
+    InstructionUtils::setFlagGroup(temp, 8, rb);
 }
 
 void add_01(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -49,7 +49,7 @@ void add_01(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     // Set flags 
     long long int temp = (long long int)op1 + (long long int)op2;
-    setFlagGroup(temp, 32, rb);
+    InstructionUtils::setFlagGroup(temp, 32, rb);
 }
 
 void add_02(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -74,19 +74,19 @@ void add_02(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     // Set flags
     long long int temp = (long long int)op1 + (long long int)op2;
-    setFlagGroup(temp, 8, rb);
+    InstructionUtils::setFlagGroup(temp, 8, rb);
 }
 
 void add_04(InputReader* ir, RegisterBank* rb, Memory* mem){
 
     std::cout << "04 - Add imm8 to AL \n";
-    int8_t imm8 = getImm8(ir);
+    int8_t imm8 = InstructionUtils::getImm8(ir);
     uint8_t al = rb->get("AL");
     rb->set("AL", (uint8_t) (al+imm8));
 
     // Set flags
     long long int temp = (long long int)imm8 + (long long int)al;
-    setFlagGroup(temp, 8, rb);
+    InstructionUtils::setFlagGroup(temp, 8, rb);
 }
 
 void add_83(InputReader* ir, RegisterBank* rb, Memory* mem){
@@ -99,19 +99,19 @@ void add_83(InputReader* ir, RegisterBank* rb, Memory* mem){
     if (isRMReg(modrm)){
         std::string rm32 = getRMReg(modrm, REG_32);
         op2 = rb->get(rm32);
-        imm8 = getImm8(ir);
+        imm8 = InstructionUtils::getImm8(ir);
         rb->set(rm32, (imm8+op2));
     }
     else{
         uint32_t rm_mem = getRMMemLocation(modrm, rb, ir);
         op2 = mem->read(rm_mem);
-        imm8 = getImm8(ir);
+        imm8 = InstructionUtils::getImm8(ir);
         mem->write(rm_mem, (imm8+op2));
     }
 
     // Set flags 
     long long int temp = (long long int)imm8 + (long long int)op2;
-    setFlagGroup(temp, 32, rb);
+    InstructionUtils::setFlagGroup(temp, 32, rb);
 }
 
 void add(InputReader* ir, RegisterBank* rb, Memory* mem, uint8_t opcode){

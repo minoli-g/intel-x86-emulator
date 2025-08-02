@@ -1,7 +1,7 @@
 #include "modrm.hpp"
 #include "register.hpp"
 #include "input_reader.hpp"
-#include "instr_utils.hpp"
+#include "instruction_utils.hpp"
 
 std::string regs_32bit[] = {"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI" };
 std::string regs_16bit[] = { "AX", "CX", "DX", "BX", "SP", "BP", "SI", "DI" };
@@ -61,10 +61,10 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
 
             case 4: {
                 uint8_t sib = ir->nextByte();
-                return getSIBMemLocation(sib, rb, mod, ir);
+                return InstructionUtils::getSIBMemLocation(sib, rb, mod, ir);
             }
             case 5:
-                return getDisp32(ir);
+                return InstructionUtils::getDisp32(ir);
 
             default:
                 return rb->get(regs_32bit[rm]);
@@ -76,7 +76,7 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
             case 4: {
                 uint8_t sib = ir->nextByte();
                 uint8_t disp8 = ir->nextByte();
-                return getSIBMemLocation(sib, rb, mod, ir) + disp8;
+                return InstructionUtils::getSIBMemLocation(sib, rb, mod, ir) + disp8;
             }
             default:
                 uint8_t disp8 = ir->nextByte();
@@ -88,11 +88,11 @@ uint32_t getRMMemLocation(uint8_t modrm, RegisterBank* rb, InputReader* ir){
 
             case 4: {
                 uint8_t sib = ir->nextByte();
-                uint8_t disp32 = getDisp32(ir);
-                return getSIBMemLocation(sib, rb, mod, ir) + disp32;
+                uint8_t disp32 = InstructionUtils::getDisp32(ir);
+                return InstructionUtils::getSIBMemLocation(sib, rb, mod, ir) + disp32;
             }
             default:
-                uint32_t disp32 = getDisp32(ir);
+                uint32_t disp32 = InstructionUtils::getDisp32(ir);
                 return rb->get(regs_32bit[rm]) + disp32;
         }
     }
